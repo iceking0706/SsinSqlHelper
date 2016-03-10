@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SsinSqlHelperCfg>
+    <!-- 数据库的基本配置 -->
+    <database use="true">
+        <!-- 数据库的类型：sqlite | mysql | sqlserver | oracle -->
+        <type>mysql</type>
+        <!-- 数据库的名字，sqlite可以忽略 -->
+        <name>mydb</name>
+        <!-- jdbc四个基本的配置信息，${user.dir}表示当前工程路径 -->
+        <!-- <driver>org.sqlite.JDBC</driver>
+        <url>jdbc:sqlite:${user.dir}\TT22.db</url>
+        <user>root</user>
+        <pass>onecard</pass> -->
+        <driver>com.mysql.jdbc.Driver</driver>
+        <url>jdbc:mysql://localhost:3306/mydb?characterEncoding=utf8&amp;reConnect=true</url>
+        <user>root</user>
+        <pass>onecard</pass>
+        <!-- 是否创建、更新数据库 -->
+        <updateDB>true</updateDB>
+        <!-- 是否显示sql语句 -->
+        <showSql>false</showSql>
+        <!-- 是否启动DBCP的连接池，false的话，则使用直连模式 -->
+        <dbcp use="true">
+            <!-- 初始化连接池大小 -->
+            <initialSize>1</initialSize>
+            <!-- 最大连接数 -->
+            <maxActive>100</maxActive>
+            <!-- 最大空闲连接 -->
+            <maxIdle>20</maxIdle>
+            <!-- 最小空闲连接 -->
+            <minIdle>1</minIdle>
+            <!-- 超时等待时间 -->
+            <maxWait>10000</maxWait>
+            <!-- 超时后回收废弃的连接 -->
+            <removeAbandoned>true</removeAbandoned>
+            <!-- 回收废弃连接的超时时间 -->
+            <removeAbandonedTimeout>180</removeAbandonedTimeout>
+        </dbcp>
+        <!-- 使用注解的表格实体类 -->
+        <tableClasses>
+            <Class>test.tables.Banji</Class>
+            <Class>test.tables.Xuesheng</Class>
+            <Class>test.tables.TbTmp1</Class>
+        </tableClasses>
+    </database>
+    
+    <!-- log4j的基本配置，目前主要是控制台、滚动日志、每天日志三种模式 -->
+    <log4j use="true">
+        <!-- 日志文件的保存路径，支持 ${user.dir}-->
+        <saveDir>${user.dir}\logs</saveDir>
+        <!-- 日志的输出级别，debug | info | warn | error -->
+        <level>debug</level>
+        <!-- 日志输出内容的样式 -->
+        <layoutPattern>%d{yyyy-MM-dd HH:mm:ss} %-5p [%c{1}] %m%n</layoutPattern>
+        <!-- 控制台日志 -->
+        <ConsoleAppender use="true" />
+        <!-- 按大小滚动的日志文件
+        filepath: 文件相对 saveDir 的路径
+        maxFileSize: 每个文件的最大字节，单位：G | M | K，默认M
+        maxFileCount: 文件最大数量
+         -->
+        <RollingFileAppender use="false" filepath="rolling.log" maxFileSize="100M" maxFileCount="100" />
+        <!-- 按日期滚动的日志文件，日期格式_yyyy-MM-dd.log 
+        filepath: 文件相对 saveDir 的路径
+        -->
+        <DailyRollingFileAppender use="false" filepath="daily.log" />
+    </log4j>
+</SsinSqlHelperCfg>
